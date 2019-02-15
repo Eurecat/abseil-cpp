@@ -5,6 +5,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11  ${CMAKE_CXX_FLAGS}")
 
 find_package(catkin REQUIRED)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set( ABSL_PUBLIC_LIBRARIES
     absl_bad_any_cast
     absl_bad_optional_access
