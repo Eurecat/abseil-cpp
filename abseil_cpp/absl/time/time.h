@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+//      https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,7 +58,6 @@
 //   std::string s = absl::FormatTime(
 //       "My flight will land in Sydney on %Y-%m-%d at %H:%M:%S",
 //       landing, syd);
-//
 
 #ifndef ABSL_TIME_TIME_H_
 #define ABSL_TIME_TIME_H_
@@ -69,6 +68,7 @@
 #include <winsock2.h>
 #endif
 #include <chrono>  // NOLINT(build/c++11)
+#include <cmath>
 #include <cstdint>
 #include <ctime>
 #include <ostream>
@@ -76,7 +76,6 @@
 #include <type_traits>
 #include <utility>
 
-#include "absl/base/port.h"  // Needed for string vs std::string
 #include "absl/strings/string_view.h"
 #include "absl/time/civil_time.h"
 #include "absl/time/internal/cctz/include/cctz/time_zone.h"
@@ -152,6 +151,16 @@ class Duration {
  public:
   // Value semantics.
   constexpr Duration() : rep_hi_(0), rep_lo_(0) {}  // zero-length duration
+
+  // Copyable.
+#if !defined(__clang__) && defined(_MSC_VER) && _MSC_VER < 1910
+  // Explicitly defining the constexpr copy constructor avoids an MSVC bug.
+  constexpr Duration(const Duration& d)
+      : rep_hi_(d.rep_hi_), rep_lo_(d.rep_lo_) {}
+#else
+  constexpr Duration(const Duration& d) = default;
+#endif
+  Duration& operator=(const Duration& d) = default;
 
   // Compound assignment operators.
   Duration& operator+=(Duration d);
@@ -401,11 +410,13 @@ Duration Milliseconds(T n) {
 }
 template <typename T, time_internal::EnableIfFloat<T> = 0>
 Duration Seconds(T n) {
-  if (n >= 0) {
-    if (n >= std::numeric_limits<int64_t>::max()) return InfiniteDuration();
+  if (n >= 0) {  // Note: `NaN >= 0` is false.
+    if (n >= (std::numeric_limits<int64_t>::max)()) return InfiniteDuration();
     return time_internal::MakePosDoubleDuration(n);
   } else {
-    if (n <= std::numeric_limits<int64_t>::min()) return -InfiniteDuration();
+    if (std::isnan(n))
+      return std::signbit(n) ? -InfiniteDuration() : InfiniteDuration();
+    if (n <= (std::numeric_limits<int64_t>::min)()) return -InfiniteDuration();
     return -time_internal::MakePosDoubleDuration(-n);
   }
 }
@@ -557,7 +568,6 @@ std::string UnparseFlag(Duration d);
 // The `absl::Time` class represents an instant in time as a count of clock
 // ticks of some granularity (resolution) from some starting point (epoch).
 //
-//
 // `absl::Time` uses a resolution that is high enough to avoid loss in
 // precision, and a range that is wide enough to avoid overflow, when
 // converting between tick counts in most Google time scales (i.e., resolution
@@ -584,7 +594,11 @@ class Time {
   //   absl::Time t = absl::Now();
   //   absl::Time t = absl::TimeFromTimeval(tv);
   //   absl::Time t = absl::InfinitePast();
-  constexpr Time() {}
+  constexpr Time() = default;
+
+  // Copyable.
+  constexpr Time(const Time& t) = default;
+  Time& operator=(const Time& t) = default;
 
   // Assignment operators.
   Time& operator+=(Duration d) {
@@ -686,7 +700,7 @@ constexpr Time UniversalEpoch() {
 // Returns an `absl::Time` that is infinitely far in the future.
 constexpr Time InfiniteFuture() {
   return Time(
-      time_internal::MakeDuration(std::numeric_limits<int64_t>::max(), ~0U));
+      time_internal::MakeDuration((std::numeric_limits<int64_t>::max)(), ~0U));
 }
 
 // InfinitePast()
@@ -694,7 +708,7 @@ constexpr Time InfiniteFuture() {
 // Returns an `absl::Time` that is infinitely far in the past.
 constexpr Time InfinitePast() {
   return Time(
-      time_internal::MakeDuration(std::numeric_limits<int64_t>::min(), ~0U));
+      time_internal::MakeDuration((std::numeric_limits<int64_t>::min)(), ~0U));
 }
 
 // FromUnixNanos()
@@ -820,12 +834,14 @@ std::string UnparseFlag(Time t);
 //
 // See also:
 // - https://github.com/google/cctz
-// - http://www.iana.org/time-zones
-// - http://en.wikipedia.org/wiki/Zoneinfo
+// - https://www.iana.org/time-zones
+// - https://en.wikipedia.org/wiki/Zoneinfo
 class TimeZone {
  public:
   explicit TimeZone(time_internal::cctz::time_zone tz) : cz_(tz) {}
   TimeZone() = default;  // UTC, but prefer UTCTimeZone() to be explicit.
+
+  // Copyable.
   TimeZone(const TimeZone&) = default;
   TimeZone& operator=(const TimeZone&) = default;
 
@@ -1130,7 +1146,9 @@ TimeConversion ConvertDateTime(int64_t year, int mon, int day, int hour,
 //   absl::Time t = absl::FromDateTime(2017, 9, 26, 9, 30, 0, lax);
 //   // t = 2017-09-26 09:30:00 -0700
 //
-// Deprecated. Use `absl::TimeZone::At(CivilSecond).pre`.
+// Deprecated. Use `absl::FromCivil(CivilSecond, TimeZone)`. Note that the
+// behavior of `FromCivil()` differs from `FromDateTime()` for skipped civil
+// times. If you care about that see `absl::TimeZone::At(absl::CivilSecond)`.
 inline Time FromDateTime(int64_t year, int mon, int day, int hour,
                          int min, int sec, TimeZone tz) {
   return ConvertDateTime(year, mon, day, hour, min, sec, tz).pre;
@@ -1201,7 +1219,7 @@ extern const char RFC1123_no_wday[];  // %d %b %E4Y %H:%M:%S %z
 //
 //   absl::CivilSecond cs(2013, 1, 2, 3, 4, 5);
 //   absl::Time t = absl::FromCivil(cs, lax);
-//   string f = absl::FormatTime("%H:%M:%S", t, lax);  // "03:04:05"
+//   std::string f = absl::FormatTime("%H:%M:%S", t, lax);  // "03:04:05"
 //   f = absl::FormatTime("%H:%M:%E3S", t, lax);  // "03:04:05.000"
 //
 // Note: If the given `absl::Time` is `absl::InfiniteFuture()`, the returned
@@ -1320,17 +1338,20 @@ constexpr Duration MakeNormalizedDuration(int64_t sec, int64_t ticks) {
   return (ticks < 0) ? MakeDuration(sec - 1, ticks + kTicksPerSecond)
                      : MakeDuration(sec, ticks);
 }
+
 // Provide access to the Duration representation.
 constexpr int64_t GetRepHi(Duration d) { return d.rep_hi_; }
 constexpr uint32_t GetRepLo(Duration d) { return d.rep_lo_; }
+
+// Returns true iff d is positive or negative infinity.
 constexpr bool IsInfiniteDuration(Duration d) { return GetRepLo(d) == ~0U; }
 
 // Returns an infinite Duration with the opposite sign.
 // REQUIRES: IsInfiniteDuration(d)
 constexpr Duration OppositeInfinity(Duration d) {
   return GetRepHi(d) < 0
-             ? MakeDuration(std::numeric_limits<int64_t>::max(), ~0U)
-             : MakeDuration(std::numeric_limits<int64_t>::min(), ~0U);
+             ? MakeDuration((std::numeric_limits<int64_t>::max)(), ~0U)
+             : MakeDuration((std::numeric_limits<int64_t>::min)(), ~0U);
 }
 
 // Returns (-n)-1 (equivalently -(n+1)) without avoidable overflow.
@@ -1355,14 +1376,14 @@ constexpr Duration FromInt64(int64_t v, std::ratio<1, N>) {
       v / N, v % N * kTicksPerNanosecond * 1000 * 1000 * 1000 / N);
 }
 constexpr Duration FromInt64(int64_t v, std::ratio<60>) {
-  return (v <= std::numeric_limits<int64_t>::max() / 60 &&
-          v >= std::numeric_limits<int64_t>::min() / 60)
+  return (v <= (std::numeric_limits<int64_t>::max)() / 60 &&
+          v >= (std::numeric_limits<int64_t>::min)() / 60)
              ? MakeDuration(v * 60)
              : v > 0 ? InfiniteDuration() : -InfiniteDuration();
 }
 constexpr Duration FromInt64(int64_t v, std::ratio<3600>) {
-  return (v <= std::numeric_limits<int64_t>::max() / 3600 &&
-          v >= std::numeric_limits<int64_t>::min() / 3600)
+  return (v <= (std::numeric_limits<int64_t>::max)() / 3600 &&
+          v >= (std::numeric_limits<int64_t>::min)() / 3600)
              ? MakeDuration(v * 3600)
              : v > 0 ? InfiniteDuration() : -InfiniteDuration();
 }
@@ -1419,14 +1440,15 @@ T ToChronoDuration(Duration d) {
   using Period = typename T::period;
   static_assert(IsValidRep64<Rep>(0), "duration::rep is invalid");
   if (time_internal::IsInfiniteDuration(d))
-    return d < ZeroDuration() ? T::min() : T::max();
+    return d < ZeroDuration() ? (T::min)() : (T::max)();
   const auto v = ToInt64(d, Period{});
-  if (v > std::numeric_limits<Rep>::max()) return T::max();
-  if (v < std::numeric_limits<Rep>::min()) return T::min();
+  if (v > (std::numeric_limits<Rep>::max)()) return (T::max)();
+  if (v < (std::numeric_limits<Rep>::min)()) return (T::min)();
   return T{v};
 }
 
 }  // namespace time_internal
+
 constexpr Duration Nanoseconds(int64_t n) {
   return time_internal::FromInt64(n, std::nano{});
 }
@@ -1449,7 +1471,8 @@ constexpr Duration Hours(int64_t n) {
 constexpr bool operator<(Duration lhs, Duration rhs) {
   return time_internal::GetRepHi(lhs) != time_internal::GetRepHi(rhs)
              ? time_internal::GetRepHi(lhs) < time_internal::GetRepHi(rhs)
-             : time_internal::GetRepHi(lhs) == std::numeric_limits<int64_t>::min()
+             : time_internal::GetRepHi(lhs) ==
+                       (std::numeric_limits<int64_t>::min)()
                    ? time_internal::GetRepLo(lhs) + 1 <
                          time_internal::GetRepLo(rhs) + 1
                    : time_internal::GetRepLo(lhs) <
@@ -1474,7 +1497,8 @@ constexpr Duration operator-(Duration d) {
   // a second's worth of ticks and avoid overflow (as negating int64_t-min + 1
   // is safe).
   return time_internal::GetRepLo(d) == 0
-             ? time_internal::GetRepHi(d) == std::numeric_limits<int64_t>::min()
+             ? time_internal::GetRepHi(d) ==
+                       (std::numeric_limits<int64_t>::min)()
                    ? InfiniteDuration()
                    : time_internal::MakeDuration(-time_internal::GetRepHi(d))
              : time_internal::IsInfiniteDuration(d)
@@ -1487,7 +1511,8 @@ constexpr Duration operator-(Duration d) {
 }
 
 constexpr Duration InfiniteDuration() {
-  return time_internal::MakeDuration(std::numeric_limits<int64_t>::max(), ~0U);
+  return time_internal::MakeDuration((std::numeric_limits<int64_t>::max)(),
+                                     ~0U);
 }
 
 constexpr Duration FromChrono(const std::chrono::nanoseconds& d) {

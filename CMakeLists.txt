@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(abseil_cpp)
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -fPIC ${CMAKE_CXX_FLAGS}")
@@ -8,27 +8,17 @@ find_package(catkin REQUIRED)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set( ABSL_PUBLIC_LIBRARIES
-    absl_bad_any_cast
-    absl_bad_optional_access
-    absl_base
-    absl_container
-    absl_debugging
-    absl_dynamic_annotations
-    absl_examine_stack
-    absl_failure_signal_handler
-    absl_hash
-    absl_int128
-    absl_leak_check
-    absl_meta
-    absl_optional
-    absl_strings
-    absl_stack_consumption
-    absl_stacktrace
-    absl_synchronization
-    absl_symbolize
-    absl_time
-    absl_variant
-    absl_utility
+    absl::base
+    absl::algorithm
+    absl::debugging
+    absl::flat_hash_map
+    absl::memory
+    absl::meta
+    absl::numeric
+    absl::strings
+    absl::synchronization
+    absl::time
+    absl::utility
 )
 
 catkin_package(
@@ -58,5 +48,4 @@ install(DIRECTORY ./abseil_cpp/absl/
     DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
     FILES_MATCHING PATTERN "*.inc"
  )
-
 
