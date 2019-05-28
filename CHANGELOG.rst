@@ -2,8 +2,8 @@
 Changelog for package abseil_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.4.0 (2019-05-28)
+------------------
 * updated to version 2019-05-28
 * ensure that -fPIC is set
 * fixes

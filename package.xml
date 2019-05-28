@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>abseil_cpp</name>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <description>The abseil_cpp package</description>
 
   <maintainer email="davide.faconti@gmail.com">dfaconti</maintainer>
