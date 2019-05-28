@@ -2,6 +2,13 @@
 Changelog for package abseil_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated to version 2019-05-28
+* ensure that -fPIC is set
+* fixes
+* Contributors: Alexander Rössler, Davide Faconti
+
 0.3.0 (2018-10-30)
 ------------------
 * typo fixed
