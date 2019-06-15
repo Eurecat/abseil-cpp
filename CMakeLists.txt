@@ -8,17 +8,44 @@ find_package(catkin REQUIRED)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set( ABSL_PUBLIC_LIBRARIES
-    absl::base
-    absl::algorithm
-    absl::debugging
-    absl::flat_hash_map
-    absl::memory
-    absl::meta
-    absl::numeric
-    absl::strings
-    absl::synchronization
-    absl::time
-    absl::utility
+    absl_spinlock_wait
+    absl_dynamic_annotations
+    absl_malloc_internal
+    absl_base
+    absl_throw_delegate
+    absl_scoped_set_env
+    absl_hashtablez_sampler
+    absl_raw_hash_set
+    absl_examine_stack
+    absl_failure_signal_handler
+    absl_debugging_internal
+    absl_demangle_internal
+    absl_leak_check
+    absl_leak_check_disable
+    absl_hash
+    absl_city
+    absl_int128
+    absl_graphcycles_internal
+    absl_bad_any_cast_impl
+    absl_bad_optional_access
+    absl_bad_variant_access
+    absl_civil_time
+    absl_flags_internal
+    absl_flags_config
+    absl_flags_marshalling
+    absl_flags_handle
+    absl_flags_registry
+    absl_flags
+    absl_flags_usage
+    absl_flags_parse
+    absl_str_format_internal
+    absl_strings
+    absl_strings_internal
+    absl_stacktrace
+    absl_symbolize
+    absl_synchronization
+    absl_time
+    absl_time_zone
 )
 
 catkin_package(
@@ -28,24 +55,4 @@ catkin_package(
 
 add_subdirectory(abseil_cpp)
 
-
-#############
-## Install ##
-#############
-
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-
-## Mark cpp header files for installation
-install(DIRECTORY ./abseil_cpp/absl/
-    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
-    FILES_MATCHING PATTERN "*.h"
-    PATTERN ".svn" EXCLUDE
- )
-
-install(DIRECTORY ./abseil_cpp/absl/
-    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
-    FILES_MATCHING PATTERN "*.inc"
- )
 
