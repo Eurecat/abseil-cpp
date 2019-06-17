@@ -25,16 +25,16 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::core_headers
-    absl::endian
-    absl::fixed_array
-    absl::meta
-    absl::int128
-    absl::strings
-    absl::optional
-    absl::variant
-    absl::utility
-    absl::city
+    absl_core_headers
+    absl_endian
+    absl_fixed_array
+    absl_meta
+    absl_int128
+    absl_strings
+    absl_optional
+    absl_variant
+    absl_utility
+    absl_city
   PUBLIC
 )
 
@@ -46,10 +46,10 @@ absl_cc_library(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::spy_hash_state
-    absl::meta
-    absl::strings
-    absl::variant
+    absl_spy_hash_state
+    absl_meta
+    absl_strings
+    absl_variant
     gmock
   TESTONLY
 )
@@ -62,13 +62,13 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::hash
-    absl::hash_testing
-    absl::core_headers
-    absl::flat_hash_set
-    absl::spy_hash_state
-    absl::meta
-    absl::int128
+    absl_hash
+    absl_hash_testing
+    absl_core_headers
+    absl_flat_hash_set
+    absl_spy_hash_state
+    absl_meta
+    absl_int128
     gmock_main
 )
 
@@ -80,9 +80,9 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::hash
-    absl::strings
-    absl::str_format
+    absl_hash
+    absl_strings
+    absl_str_format
   TESTONLY
 )
 
@@ -96,9 +96,9 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::config
-    absl::core_headers
-    absl::endian
+    absl_config
+    absl_core_headers
+    absl_endian
 )
 
 absl_cc_test(
@@ -109,7 +109,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::city
+    absl_city
     gmock_main
 )
 

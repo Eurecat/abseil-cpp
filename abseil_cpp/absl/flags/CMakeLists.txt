@@ -28,8 +28,8 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::strings
-    absl::synchronization
+    absl_strings
+    absl_synchronization
   PUBLIC
 )
 
@@ -46,10 +46,10 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_internal
-    absl::core_headers
-    absl::strings
-    absl::synchronization
+    absl_flags_internal
+    absl_core_headers
+    absl_strings
+    absl_synchronization
 )
 
 absl_cc_library(
@@ -64,9 +64,9 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::core_headers
-    absl::strings
-    absl::str_format
+    absl_core_headers
+    absl_strings
+    absl_str_format
 )
 
 # Internal-only target, do not depend on directly.
@@ -82,13 +82,13 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_config
-    absl::flags_marshalling
-    absl::base
-    absl::core_headers
-    absl::strings
-    absl::synchronization
-    absl::optional
+    absl_flags_config
+    absl_flags_marshalling
+    absl_base
+    absl_core_headers
+    absl_strings
+    absl_synchronization
+    absl_optional
 )
 
 # Internal-only target, do not depend on directly.
@@ -106,13 +106,13 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_config
-    absl::flags_handle
-    absl::base
-    absl::core_headers
-    absl::dynamic_annotations
-    absl::strings
-    absl::synchronization
+    absl_flags_config
+    absl_flags_handle
+    absl_base
+    absl_core_headers
+    absl_dynamic_annotations
+    absl_strings
+    absl_synchronization
 )
 
 absl_cc_library(
@@ -129,13 +129,13 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_config
-    absl::flags_handle
-    absl::flags_marshalling
-    absl::flags_registry
-    absl::base
-    absl::core_headers
-    absl::strings
+    absl_flags_config
+    absl_flags_handle
+    absl_flags_marshalling
+    absl_flags_registry
+    absl_base
+    absl_core_headers
+    absl_strings
 )
 
 # Internal-only target, do not depend on directly.
@@ -151,12 +151,12 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_config
-    absl::flags
-    absl::flags_handle
-    absl::flags_internal
-    absl::strings
-    absl::synchronization
+    absl_flags_config
+    absl_flags
+    absl_flags_handle
+    absl_flags_internal
+    absl_strings
+    absl_synchronization
 )
 
 absl_cc_library(
@@ -172,14 +172,14 @@ absl_cc_library(
   LINKOPTS
     ${ABSL_DEFAULT_LINKOPTS}
   DEPS
-    absl::flags_config
-    absl::flags
-    absl::flags_handle
-    absl::flags_internal
-    absl::flags_registry
-    absl::flags_usage
-    absl::strings
-    absl::synchronization
+    absl_flags_config
+    absl_flags
+    absl_flags_handle
+    absl_flags_internal
+    absl_flags_registry
+    absl_flags_usage
+    absl_strings
+    absl_synchronization
 )
 
 ############################################################################
@@ -193,11 +193,11 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags
-    absl::flags_handle
-    absl::flags_registry
-    absl::memory
-    absl::strings
+    absl_flags
+    absl_flags_handle
+    absl_flags_registry
+    absl_memory
+    absl_strings
     gtest_main
 )
 
@@ -209,7 +209,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_config
+    absl_flags_config
     gtest_main
 )
 
@@ -222,8 +222,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags
-    absl::strings
+    absl_flags
+    absl_strings
     gtest_main
 )
 
@@ -235,7 +235,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_marshalling
+    absl_flags_marshalling
     gtest_main
 )
 
@@ -247,12 +247,12 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags
-    absl::base
-    absl::flags_parse
-    absl::scoped_set_env
-    absl::span
-    absl::strings
+    absl_flags
+    absl_base
+    absl_flags_parse
+    absl_scoped_set_env
+    absl_span
+    absl_strings
     gmock_main
 )
 
@@ -264,7 +264,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_internal
+    absl_flags_internal
     gtest_main
 )
 
@@ -276,8 +276,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_internal
-    absl::strings
+    absl_flags_internal
+    absl_strings
     gtest_main
 )
 
@@ -289,10 +289,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags
-    absl::flags_registry
-    absl::memory
-    absl::strings
+    absl_flags
+    absl_flags_registry
+    absl_memory
+    absl_strings
     gtest_main
 )
 
@@ -304,9 +304,9 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_config
-    absl::flags_internal
-    absl::strings
+    absl_flags_config
+    absl_flags_internal
+    absl_strings
     gtest_main
 )
 
@@ -318,12 +318,12 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_config
-    absl::flags
-    absl::flags_internal
-    absl::flags_parse
-    absl::flags_usage
-    absl::memory
-    absl::strings
+    absl_flags_config
+    absl_flags
+    absl_flags_internal
+    absl_flags_parse
+    absl_flags_usage
+    absl_memory
+    absl_strings
     gtest
 )

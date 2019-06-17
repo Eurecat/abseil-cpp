@@ -36,13 +36,13 @@ set(ABSL_IDE_FOLDER Abseil)
 # COPTS: List of private compile options
 # DEFINES: List of public defines
 # LINKOPTS: List of link options
-# PUBLIC: Add this so that this library will be exported under absl::
+# PUBLIC: Add this so that this library will be exported under absl_
 # Also in IDE, target will appear in Abseil folder while non PUBLIC will be in Abseil/internal.
 # TESTONLY: When added, this target will only be built if user passes -DABSL_RUN_TESTS=ON to CMake.
 #
 # Note:
 # By default, absl_cc_library will always create a library named absl_${NAME},
-# and alias target absl::${NAME}.  The absl:: form should always be used.
+# and alias target absl_${NAME}.  The absl_ form should always be used.
 # This is to reduce namespace pollution.
 #
 # absl_cc_library(
@@ -59,7 +59,7 @@ set(ABSL_IDE_FOLDER Abseil)
 #   SRCS
 #     "b.cc"
 #   DEPS
-#     absl::awesome # not "awesome" !
+#     absl_awesome # not "awesome" !
 #   PUBLIC
 # )
 #
@@ -68,7 +68,7 @@ set(ABSL_IDE_FOLDER Abseil)
 #     main_lib
 #   ...
 #   DEPS
-#     absl::fantastic_lib
+#     absl_fantastic_lib
 # )
 #
 # TODO: Implement "ALWAYSLINK"
@@ -167,7 +167,7 @@ function(absl_cc_library)
       )
     endif()
 
-    add_library(absl::${ABSL_CC_LIB_NAME} ALIAS ${_NAME})
+    add_library(absl_${ABSL_CC_LIB_NAME} ALIAS ${_NAME})
   endif()
 endfunction()
 
@@ -204,7 +204,7 @@ endfunction()
 #   SRCS
 #     "awesome_test.cc"
 #   DEPS
-#     absl::awesome
+#     absl_awesome
 #     gmock
 #     gtest_main
 # )

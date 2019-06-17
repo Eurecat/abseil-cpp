@@ -54,9 +54,9 @@ include(AbseilHelpers)
 ## Using absl targets
 ##
 ## all public absl targets are
-## exported with the absl:: prefix
+## exported with the absl_ prefix
 ##
-## e.g absl::base absl::synchronization absl::strings ....
+## e.g absl_base absl_synchronization absl_strings ....
 ##
 ## DO NOT rely on the internal targets outside of the prefix
 
@@ -124,7 +124,7 @@ if(ABSL_ENABLE_INSTALL)
 
   # install as a subdirectory only
   install(EXPORT ${PROJECT_NAME}Targets
-    NAMESPACE absl::
+    NAMESPACE absl_
     DESTINATION "${ABSL_INSTALL_CONFIGDIR}"
   )
 

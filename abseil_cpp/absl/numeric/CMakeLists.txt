@@ -26,8 +26,8 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::config
-    absl::core_headers
+    absl_config
+    absl_core_headers
   PUBLIC
 )
 
@@ -40,11 +40,11 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::int128
-    absl::base
-    absl::core_headers
-    absl::hash_testing
-    absl::type_traits
+    absl_int128
+    absl_base
+    absl_core_headers
+    absl_hash_testing
+    absl_type_traits
     gmock_main
 )
 
@@ -55,6 +55,6 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::int128
+    absl_int128
   PUBLIC
 )

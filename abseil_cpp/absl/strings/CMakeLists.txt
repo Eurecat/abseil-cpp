@@ -53,16 +53,16 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::strings_internal
-    absl::base
-    absl::bits
-    absl::config
-    absl::core_headers
-    absl::endian
-    absl::throw_delegate
-    absl::memory
-    absl::type_traits
-    absl::int128
+    absl_strings_internal
+    absl_base
+    absl_bits
+    absl_config
+    absl_core_headers
+    absl_endian
+    absl_throw_delegate
+    absl_memory
+    absl_type_traits
+    absl_int128
   PUBLIC
 )
 
@@ -80,9 +80,9 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::core_headers
-    absl::endian
-    absl::type_traits
+    absl_core_headers
+    absl_endian
+    absl_type_traits
 )
 
 absl_cc_test(
@@ -93,8 +93,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
+    absl_strings
+    absl_base
     gmock_main
 )
 
@@ -106,9 +106,9 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
-    absl::fixed_array
+    absl_strings
+    absl_core_headers
+    absl_fixed_array
     gmock_main
 )
 
@@ -120,8 +120,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
+    absl_strings
+    absl_core_headers
     gmock_main
 )
 
@@ -134,8 +134,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
+    absl_strings
+    absl_core_headers
     gmock_main
 )
 
@@ -147,9 +147,9 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings_internal
-    absl::base
-    absl::core_headers
+    absl_strings_internal
+    absl_base
+    absl_core_headers
     gmock_main
 )
 
@@ -164,10 +164,10 @@ absl_cc_test(
   LINKOPTS
     ${ABSL_EXCEPTIONS_FLAG_LINKOPTS}
   DEPS
-    absl::strings
-    absl::config
-    absl::core_headers
-    absl::dynamic_annotations
+    absl_strings
+    absl_config
+    absl_core_headers
+    absl_dynamic_annotations
     gmock_main
 )
 
@@ -179,8 +179,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
+    absl_strings
+    absl_core_headers
     gmock_main
 )
 
@@ -192,7 +192,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
+    absl_strings
     gmock_main
 )
 
@@ -204,10 +204,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
-    absl::core_headers
-    absl::dynamic_annotations
+    absl_strings
+    absl_base
+    absl_core_headers
+    absl_dynamic_annotations
     gmock_main
 )
 
@@ -219,7 +219,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings_internal
+    absl_strings_internal
     gmock_main
 )
 
@@ -232,9 +232,9 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::base
-    absl::core_headers
-    absl::type_traits
+    absl_base
+    absl_core_headers
+    absl_type_traits
     gmock_main
 )
 
@@ -246,10 +246,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
-    absl::core_headers
-    absl::memory
+    absl_strings
+    absl_base
+    absl_core_headers
+    absl_memory
     gmock_main
 )
 
@@ -261,8 +261,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
+    absl_strings
+    absl_core_headers
     gmock_main
 )
 
@@ -275,10 +275,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
-    absl::core_headers
-    absl::pow10_helper
+    absl_strings
+    absl_base
+    absl_core_headers
+    absl_pow10_helper
     gmock_main
 )
 
@@ -290,8 +290,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
+    absl_strings
+    absl_base
     gmock_main
 )
 
@@ -303,7 +303,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings_internal
+    absl_strings_internal
     gmock_main
 )
 
@@ -315,10 +315,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::str_format
-    absl::base
-    absl::pow10_helper
+    absl_strings
+    absl_str_format
+    absl_base
+    absl_pow10_helper
     gmock_main
 )
 
@@ -331,8 +331,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
+    absl_strings
+    absl_base
     gmock_main
 )
 
@@ -346,8 +346,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::strings
-    absl::base
+    absl_strings
+    absl_base
     gmock_main
 )
 
@@ -359,7 +359,7 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::str_format_internal
+    absl_str_format_internal
   PUBLIC
 )
 
@@ -384,12 +384,12 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::strings
-    absl::core_headers
-    absl::inlined_vector
-    absl::type_traits
-    absl::int128
-    absl::span
+    absl_strings
+    absl_core_headers
+    absl_inlined_vector
+    absl_type_traits
+    absl_int128
+    absl_span
 )
 
 absl_cc_test(
@@ -400,9 +400,9 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format
-    absl::strings
-    absl::core_headers
+    absl_str_format
+    absl_strings
+    absl_core_headers
     gmock_main
 )
 
@@ -414,8 +414,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format
-    absl::str_format_internal
+    absl_str_format
+    absl_str_format_internal
     gmock_main
 )
 
@@ -427,8 +427,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format
-    absl::str_format_internal
+    absl_str_format
+    absl_str_format_internal
     gmock_main
 )
 
@@ -440,7 +440,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format_internal
+    absl_str_format_internal
     gmock_main
 )
 
@@ -452,7 +452,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format
+    absl_str_format
     gmock_main
 )
 
@@ -464,8 +464,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format_internal
-    absl::int128
+    absl_str_format_internal
+    absl_int128
     gmock_main
 )
 
@@ -477,7 +477,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format_internal
+    absl_str_format_internal
     gmock_main
 )
 
@@ -489,8 +489,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::str_format_internal
-    absl::core_headers
+    absl_str_format_internal
+    absl_core_headers
     gmock_main
 )
 
@@ -514,7 +514,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::pow10_helper
-    absl::str_format
+    absl_pow10_helper
+    absl_str_format
     gmock_main
 )

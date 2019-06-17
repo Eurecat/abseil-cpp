@@ -32,12 +32,12 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::base
-    absl::core_headers
-    absl::int128
-    absl::strings
-    absl::civil_time
-    absl::time_zone
+    absl_base
+    absl_core_headers
+    absl_int128
+    absl_strings
+    absl_civil_time
+    absl_time_zone
   PUBLIC
 )
 
@@ -97,9 +97,9 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::time
-    absl::base
-    absl::time_zone
+    absl_time
+    absl_base
+    absl_time_zone
     gmock
   TESTONLY
 )
@@ -117,11 +117,11 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::test_util
-    absl::time
-    absl::base
-    absl::config
-    absl::core_headers
-    absl::time_zone
+    absl_test_util
+    absl_time
+    absl_base
+    absl_config
+    absl_core_headers
+    absl_time_zone
     gmock_main
 )

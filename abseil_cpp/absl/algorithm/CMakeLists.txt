@@ -32,7 +32,7 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::algorithm
+    absl_algorithm
     gmock_main
 )
 
@@ -44,9 +44,9 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   DEPS
-    absl::algorithm
-    absl::core_headers
-    absl::meta
+    absl_algorithm
+    absl_core_headers
+    absl_meta
   PUBLIC
 )
 
@@ -58,10 +58,10 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::algorithm_container
-    absl::base
-    absl::core_headers
-    absl::memory
-    absl::span
+    absl_algorithm_container
+    absl_base
+    absl_core_headers
+    absl_memory
+    absl_span
     gmock_main
 )
