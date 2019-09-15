@@ -11,7 +11,6 @@ set( ABSL_PUBLIC_LIBRARIES
     absl_spinlock_wait
     absl_dynamic_annotations
     absl_malloc_internal
-    absl_base
     absl_throw_delegate
     absl_scoped_set_env
     absl_hashtablez_sampler
@@ -46,6 +45,7 @@ set( ABSL_PUBLIC_LIBRARIES
     absl_synchronization
     absl_time
     absl_time_zone
+    absl_base
 )
 
 catkin_package(
